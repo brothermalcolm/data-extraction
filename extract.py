@@ -4,31 +4,29 @@ Created on Wed Apr 12 12:14:22 2017
 
 @author: SERNMO
 """
-
+  
 #%%
-# Open file
-fhand = open('16112601.txt')
+# Import packages
+import re
 
-#%% 
-# Read file line by line
-for line in fhand:
-    print(line.rstrip().upper())
-    
-#%%
-# Look for lines of the form 
+# Open file i/o
 fname = input('Enter filename: ')
 fhand = open(fname)
-import re
+ftar = open('e'+fname, 'w')
+ftar.truncate()
+
+# Look for lines of the form 
 regex = '.*;;;(.*;[0-9];)'
 count = 0
-ftar = open('e'+fname, 'w')
-ftar.truncate
 for line in fhand:
     line = line.rstrip()
     if re.search(regex, line):
         data = re.findall(regex, line)
         #print(data)
-        print(line)
+        #print(line)
         count = count + 1
         ftar.write(str(data[0])+'\n')
 print('file %s had %i lines that matched %s' % (fname, count, regex))
+
+# Close file i/o
+ftar.close()
